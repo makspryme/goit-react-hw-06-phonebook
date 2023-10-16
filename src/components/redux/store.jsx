@@ -1,10 +1,4 @@
-import {
-  configureStore,
-  createAction,
-  createReducer,
-  createSlice,
-  combineReducers,
-} from '@reduxjs/toolkit';
+import { configureStore, createSlice, combineReducers } from '@reduxjs/toolkit';
 
 import {
   persistStore,
