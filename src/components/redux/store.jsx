@@ -28,7 +28,7 @@ const mySliceReducer = createSlice({
 const contactsReducer = createSlice({
   name: 'contacts',
   initialState:
-    JSON.parse(JSON.parse(localStorage.getItem('persist:root')).contacts) ?? '',
+    JSON.parse(JSON.parse(localStorage.getItem('persist:root'))?.contacts) ?? '',
   reducers: {
     add(state, { payload }) {
       state.push(payload);
