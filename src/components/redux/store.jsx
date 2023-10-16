@@ -27,11 +27,12 @@ const mySliceReducer = createSlice({
 
 const contactsReducer = createSlice({
   name: 'contacts',
-  initialState:
-    JSON.parse(JSON.parse(localStorage.getItem('persist:root'))?.contacts) ?? '',
+  initialState: localStorage.getItem('persist:root')
+    ? JSON.parse(JSON.parse(localStorage.getItem('persist:root'))?.contacts)
+    : [],
   reducers: {
     add(state, { payload }) {
-      state.push(payload);
+      return [...state, payload];
     },
     remove(state, { payload }) {
       return state.filter(contact => contact.id !== payload);

@@ -3,17 +3,13 @@ import ContactForm from './ContactForm/ContactForm';
 import ContactList from './ContactList/ContactList';
 import { nanoid } from 'nanoid';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  changeFilter,
-  add,
-  remove,
-} from './redux/store';
+import { changeFilter, add, remove } from './redux/store';
 
 export default function App() {
   const dispatch = useDispatch();
   const valueContacts = useSelector(store => store.contacts);
   const filterValue = useSelector(store => store.filter);
-  
+
   function removerContacts(data) {
     dispatch(remove(data.id));
   }
@@ -39,9 +35,13 @@ export default function App() {
     dispatch(add(newContact));
   }
 
-  const filteredContacts = valueContacts.filter(contact => {
-    return contact.name.toLowerCase().includes(filterValue.toLowerCase());
-  });
+  const filteredContacts =
+    valueContacts.length > 0
+      ? valueContacts.filter(contact => {
+          console.log(contact);
+          return contact.name.toLowerCase().includes(filterValue.toLowerCase());
+        })
+      : '';
 
   return (
     <div>
