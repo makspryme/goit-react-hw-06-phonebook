@@ -1,8 +1,14 @@
+import { nanoid } from 'nanoid';
 import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { add } from 'components/redux/store';
 
-export default function ContactForm({ onSubmit }) {
+export default function ContactForm() {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
+
+  const dispatch = useDispatch();
+  const valueContacts = useSelector(store => store.contacts);
 
   function handleInputChange(e) {
     const { name, value } = e.currentTarget;
@@ -22,7 +28,21 @@ export default function ContactForm({ onSubmit }) {
   function handleSubmitForm(e) {
     e.preventDefault();
     reset();
-    return onSubmit({ name: name, number: number });
+
+    const newContact = {
+      name,
+      number,
+      id: nanoid(),
+    };
+
+    for (const { name } of valueContacts) {
+      if (name === newContact.name) {
+        alert(`${name} is already in contacts`);
+        return;
+      }
+    }
+
+    dispatch(add(newContact));
   }
 
   function reset() {
@@ -32,7 +52,7 @@ export default function ContactForm({ onSubmit }) {
 
   return (
     <div>
-      <form className="form-contact" onSubmit={handleSubmitForm}>
+      <form className="form-contact" onSubmit={e => handleSubmitForm(e)}>
         <label className="label-contact">
           Name
           <input

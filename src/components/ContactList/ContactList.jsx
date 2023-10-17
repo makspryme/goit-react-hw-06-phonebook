@@ -1,4 +1,18 @@
-export default function ContactList({ filtered, onDelete }) {
+import { remove } from 'components/redux/store';
+import { useDispatch, useSelector } from 'react-redux';
+
+export default function ContactList() {
+  const valueContacts = useSelector(store => store.contacts);
+  const filterValue = useSelector(store => store.filter);
+  const dispatch = useDispatch();
+
+  const filtered =
+    valueContacts.length > 0
+      ? valueContacts.filter(contact => {
+          return contact.name.toLowerCase().includes(filterValue.toLowerCase());
+        })
+      : '';
+
   return (
     <ul>
       {filtered.length > 0 &&
@@ -9,7 +23,7 @@ export default function ContactList({ filtered, onDelete }) {
               <button
                 type="text"
                 onClick={e => {
-                  onDelete(e.target.parentElement);
+                  dispatch(remove(e.target.parentElement.id));
                 }}
               >
                 delete
