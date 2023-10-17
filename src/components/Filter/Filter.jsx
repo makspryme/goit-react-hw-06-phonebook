@@ -1,4 +1,4 @@
-import { changeFilter } from 'components/redux/store';
+import { changeFilter } from 'redux/store';
 import { useDispatch, useSelector } from 'react-redux';
 
 export default function Filter() {

@@ -1,4 +1,4 @@
-import { remove } from 'components/redux/store';
+import { remove } from 'redux/store';
 import { useDispatch, useSelector } from 'react-redux';
 
 export default function ContactList() {

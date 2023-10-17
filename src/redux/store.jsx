@@ -1,4 +1,6 @@
-import { configureStore, createSlice, combineReducers } from '@reduxjs/toolkit';
+import { configureStore, combineReducers } from '@reduxjs/toolkit';
+import { filterReducer } from './filterReducer/filterReducer';
+import { contactsReducer } from './contactsReducer/contactsReducer';
 
 import {
   persistStore,
@@ -11,31 +13,6 @@ import {
   REGISTER,
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
-
-const contactsReducer = createSlice({
-  name: 'contacts',
-  initialState: localStorage.getItem('persist:root')
-    ? JSON.parse(JSON.parse(localStorage.getItem('persist:root'))?.contacts)
-    : [],
-  reducers: {
-    add(state, { payload }) {
-      return [...state, payload];
-    },
-    remove(state, { payload }) {
-      return state.filter(contact => contact.id !== payload);
-    },
-  },
-});
-
-const filterReducer = createSlice({
-  name: 'filter',
-  initialState: '',
-  reducers: {
-    changeFilter(state, { payload }) {
-      return payload;
-    },
-  },
-});
 
 const rootReducers = combineReducers({
   contacts: contactsReducer.reducer,
