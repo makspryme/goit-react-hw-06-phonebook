@@ -32,7 +32,6 @@ export default function ContactForm() {
     const newContact = {
       name,
       number,
-      id: nanoid(),
     };
 
     for (const { name } of valueContacts) {

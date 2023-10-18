@@ -1,13 +1,25 @@
+import { nanoid } from 'nanoid';
+import storage from 'redux-persist/lib/storage';
+
 const { createSlice } = require('@reduxjs/toolkit');
 
 const contactsReducer = createSlice({
   name: 'contacts',
-  initialState: localStorage.getItem('persist:root')
-    ? JSON.parse(JSON.parse(localStorage.getItem('persist:root'))?.contacts)
-    : [],
+  initialState: [],
   reducers: {
-    add(state, { payload }) {
-      return [...state, payload];
+    add: {
+      reducer(state, { payload }) {
+        return [...state, payload];
+      },
+      prepare({ name, number }) {
+        return {
+          payload: {
+            name,
+            number,
+            id: nanoid(),
+          },
+        };
+      },
     },
     remove(state, { payload }) {
       return state.filter(contact => contact.id !== payload);
