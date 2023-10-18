@@ -1,5 +1,4 @@
 import { nanoid } from 'nanoid';
-import storage from 'redux-persist/lib/storage';
 
 const { createSlice } = require('@reduxjs/toolkit');
 
